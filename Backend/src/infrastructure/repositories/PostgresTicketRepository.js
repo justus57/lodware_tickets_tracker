@@ -1,5 +1,4 @@
-import { Ticket } from '../../../domain/entities/Ticket.js';
-import { TicketStatus } from '../../../domain/entities/Ticket.js';
+import { Ticket, TicketStatus } from '../../domain/entities/Ticket.js';
 
 function mapRowToTicket(row) {
   return new Ticket({
