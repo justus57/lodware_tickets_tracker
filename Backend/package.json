@@ -1,0 +1,33 @@
+{
+  "name": "lodware-ticket-tracker",
+  "version": "1.0.0",
+  "description": "LODWARE Ticket Tracker API — Clean Architecture",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:migrate": "node src/infrastructure/database/migrate.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "express",
+    "clean-architecture",
+    "ticket-tracker",
+    "postgresql"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.1",
+    "uuid": "^11.0.5",
+    "zod": "^3.24.1"
+  }
+}
