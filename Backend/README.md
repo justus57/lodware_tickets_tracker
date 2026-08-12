@@ -5,13 +5,15 @@ Express API with clean architecture and PostgreSQL.
 ## Structure
 
 ```
-Backend/src/
-├── domain/           # Entities, errors, repository ports
-├── application/      # Use cases & DTOs
-├── infrastructure/   # Postgres, config, repository adapters
-├── presentation/     # Express app, routes, controllers
-├── container.js      # Dependency wiring
-└── server.js         # Entry point
+Backend/
+├── database/         # PostgreSQL schema SQL
+└── src/
+    ├── domain/
+    ├── application/
+    ├── infrastructure/
+    ├── presentation/
+    ├── container.js
+    └── server.js
 ```
 
 ## Setup
@@ -27,4 +29,13 @@ npm run db:migrate
 npm run dev
 ```
 
-API: `http://localhost:3000/api/v1/tickets`
+## API
+
+| Method | Path | Notes |
+|--------|------|-------|
+| POST | `/tickets` | create |
+| GET | `/tickets` | `?status=&page=&limit=` |
+| PATCH | `/tickets/:id` | status / priority |
+| GET | `/tickets/stats` | counts by status |
+
+Frontend lives in `../Frontend` (`npm run dev` → http://localhost:5173).
