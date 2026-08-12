@@ -11,7 +11,7 @@ export class CreateTicket {
   }
 
   /**
-   * @param {{ title: string, description?: string, priority?: string, assigneeId?: string|null }} input
+   * @param {{ title: string, description?: string, priority?: string }} input
    */
   async execute(input) {
     const ticket = Ticket.create({
@@ -19,7 +19,6 @@ export class CreateTicket {
       title: input.title,
       description: input.description ?? '',
       priority: input.priority,
-      assigneeId: input.assigneeId ?? null,
     });
 
     const created = await this.ticketRepository.create(ticket);

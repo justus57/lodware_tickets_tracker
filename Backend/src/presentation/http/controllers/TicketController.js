@@ -8,6 +8,7 @@ export class TicketController {
    *   listTickets: import('../../../application/use-cases/ListTickets.js').ListTickets,
    *   updateTicket: import('../../../application/use-cases/UpdateTicket.js').UpdateTicket,
    *   deleteTicket: import('../../../application/use-cases/DeleteTicket.js').DeleteTicket,
+   *   getTicketStats: import('../../../application/use-cases/GetTicketStats.js').GetTicketStats,
    * }} useCases
    */
   constructor(useCases) {
@@ -25,8 +26,8 @@ export class TicketController {
   });
 
   list = asyncHandler(async (req, res) => {
-    const tickets = await this.useCases.listTickets.execute(req.query);
-    res.status(200).json({ data: tickets });
+    const result = await this.useCases.listTickets.execute(req.query);
+    res.status(200).json(result);
   });
 
   update = asyncHandler(async (req, res) => {
@@ -40,5 +41,10 @@ export class TicketController {
   remove = asyncHandler(async (req, res) => {
     const result = await this.useCases.deleteTicket.execute(req.params.id);
     res.status(200).json({ data: result });
+  });
+
+  stats = asyncHandler(async (_req, res) => {
+    const stats = await this.useCases.getTicketStats.execute();
+    res.status(200).json({ data: stats });
   });
 }

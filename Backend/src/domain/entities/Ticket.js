@@ -3,7 +3,6 @@ import { ValidationError } from '../errors/ValidationError.js';
 export const TicketStatus = Object.freeze({
   OPEN: 'open',
   IN_PROGRESS: 'in_progress',
-  RESOLVED: 'resolved',
   CLOSED: 'closed',
 });
 
@@ -11,7 +10,6 @@ export const TicketPriority = Object.freeze({
   LOW: 'low',
   MEDIUM: 'medium',
   HIGH: 'high',
-  CRITICAL: 'critical',
 });
 
 const ALLOWED_STATUSES = new Set(Object.values(TicketStatus));
@@ -27,43 +25,34 @@ export class Ticket {
     description = '',
     status = TicketStatus.OPEN,
     priority = TicketPriority.MEDIUM,
-    assigneeId = null,
     createdAt = new Date(),
-    updatedAt = new Date(),
   }) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.status = status;
     this.priority = priority;
-    this.assigneeId = assigneeId;
     this.createdAt = createdAt instanceof Date ? createdAt : new Date(createdAt);
-    this.updatedAt = updatedAt instanceof Date ? updatedAt : new Date(updatedAt);
 
     this.#assertValid();
   }
 
-  static create({ id, title, description, priority, assigneeId }) {
-    const now = new Date();
+  static create({ id, title, description, priority }) {
     return new Ticket({
       id,
       title,
       description,
       status: TicketStatus.OPEN,
       priority: priority ?? TicketPriority.MEDIUM,
-      assigneeId: assigneeId ?? null,
-      createdAt: now,
-      updatedAt: now,
+      createdAt: new Date(),
     });
   }
 
-  update({ title, description, status, priority, assigneeId }) {
+  update({ title, description, status, priority }) {
     if (title !== undefined) this.title = title;
     if (description !== undefined) this.description = description;
     if (status !== undefined) this.status = status;
     if (priority !== undefined) this.priority = priority;
-    if (assigneeId !== undefined) this.assigneeId = assigneeId;
-    this.updatedAt = new Date();
     this.#assertValid();
     return this;
   }
@@ -93,9 +82,7 @@ export class Ticket {
       description: this.description,
       status: this.status,
       priority: this.priority,
-      assigneeId: this.assigneeId,
       createdAt: this.createdAt.toISOString(),
-      updatedAt: this.updatedAt.toISOString(),
     };
   }
 }

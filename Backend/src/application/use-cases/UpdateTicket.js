@@ -11,7 +11,7 @@ export class UpdateTicket {
 
   /**
    * @param {string} id
-   * @param {{ title?: string, description?: string, status?: string, priority?: string, assigneeId?: string|null }} input
+   * @param {{ status?: string, priority?: string }} input
    */
   async execute(id, input) {
     const ticket = await this.ticketRepository.findById(id);

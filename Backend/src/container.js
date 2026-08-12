@@ -3,6 +3,7 @@ import { GetTicketById } from '../application/use-cases/GetTicketById.js';
 import { ListTickets } from '../application/use-cases/ListTickets.js';
 import { UpdateTicket } from '../application/use-cases/UpdateTicket.js';
 import { DeleteTicket } from '../application/use-cases/DeleteTicket.js';
+import { GetTicketStats } from '../application/use-cases/GetTicketStats.js';
 import { PostgresTicketRepository } from '../infrastructure/repositories/PostgresTicketRepository.js';
 import { TicketController } from '../presentation/http/controllers/TicketController.js';
 
@@ -18,6 +19,7 @@ export function createContainer(pool) {
   const listTickets = new ListTickets(ticketRepository);
   const updateTicket = new UpdateTicket(ticketRepository);
   const deleteTicket = new DeleteTicket(ticketRepository);
+  const getTicketStats = new GetTicketStats(ticketRepository);
 
   const ticketController = new TicketController({
     createTicket,
@@ -25,6 +27,7 @@ export function createContainer(pool) {
     listTickets,
     updateTicket,
     deleteTicket,
+    getTicketStats,
   });
 
   return {

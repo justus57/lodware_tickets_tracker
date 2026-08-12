@@ -9,10 +9,18 @@ export class ListTickets {
   }
 
   /**
-   * @param {{ status?: string, priority?: string }} [filters]
+   * @param {{ status?: string, page?: number, limit?: number }} [filters]
    */
   async execute(filters = {}) {
-    const tickets = await this.ticketRepository.findAll(filters);
-    return toTicketDTOList(tickets);
+    const result = await this.ticketRepository.findAll(filters);
+    return {
+      data: toTicketDTOList(result.items),
+      meta: {
+        page: result.page,
+        limit: result.limit,
+        total: result.total,
+        totalPages: Math.ceil(result.total / result.limit) || 0,
+      },
+    };
   }
 }

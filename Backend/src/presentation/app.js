@@ -26,7 +26,8 @@ export function createApp(deps) {
     });
   });
 
-  app.use('/api/v1', createApiRouter(deps));
+  // Assessment paths: /tickets, /tickets/:id, /tickets/stats
+  app.use(createApiRouter(deps));
 
   app.use(notFoundHandler);
   app.use(errorHandler);

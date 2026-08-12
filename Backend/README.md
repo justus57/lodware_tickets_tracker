@@ -5,13 +5,15 @@ Express API with clean architecture and PostgreSQL.
 ## Structure
 
 ```
-Backend/src/
-├── domain/           # Entities, errors, repository ports
-├── application/      # Use cases & DTOs
-├── infrastructure/   # Postgres, config, repository adapters
-├── presentation/     # Express app, routes, controllers
-├── container.js      # Dependency wiring
-└── server.js         # Entry point
+Backend/
+├── database/         # PostgreSQL schema SQL files
+└── src/
+    ├── domain/           # Entities, errors, repository ports
+    ├── application/      # Use cases & DTOs
+    ├── infrastructure/   # Postgres pool, migrations, repositories
+    ├── presentation/     # Express app, routes, controllers
+    ├── container.js      # Dependency wiring
+    └── server.js         # Entry point
 ```
 
 ## Setup
@@ -27,4 +29,13 @@ npm run db:migrate
 npm run dev
 ```
 
-API: `http://localhost:3000/api/v1/tickets`
+API:
+
+| Method | Path | Notes |
+|--------|------|-------|
+| POST | `/tickets` | create |
+| GET | `/tickets` | `?status=&page=&limit=` |
+| PATCH | `/tickets/:id` | status / priority |
+| GET | `/tickets/stats` | counts by status |
+
+If you already created the DB with the old schema, drop and recreate the `tickets` table (or the database) before migrating.

@@ -25,6 +25,9 @@ export function createTicketRoutes(ticketController) {
     ticketController.create,
   );
 
+  // Must be before /:id so "stats" is not treated as an id
+  router.get('/stats', ticketController.stats);
+
   router.get(
     '/:id',
     validate(ticketIdParamSchema, 'params'),
